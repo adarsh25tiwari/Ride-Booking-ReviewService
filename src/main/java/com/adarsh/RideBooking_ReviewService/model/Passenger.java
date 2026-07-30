@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Passenger {
+public class Passenger extends BaseModel {
 
     @Column(nullable = false)
     private String name;
