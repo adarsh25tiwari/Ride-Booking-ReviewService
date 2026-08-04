@@ -1,9 +1,7 @@
 package com.adarsh.RideBooking_ReviewService.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Review extends BaseModel{
 
     @Column(nullable=false)
@@ -22,8 +21,10 @@ public class Review extends BaseModel{
 
     private Double rating;
 
-    @OneToOne
-    private Booking booking;    //There will be review of each booking
+    //There will be review of each booking & we don't want whenever we fetch review all booking details to be fetch
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(nullable=false)
+    private Booking booking;
 
     @Override
     public String toString(){

@@ -1,5 +1,7 @@
 package com.adarsh.RideBooking_ReviewService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","driver","passenger"})
 public class Booking extends BaseModel {
 
     @Enumerated(EnumType.STRING)
