@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class TokenValidationResponseDto {
+    private Long id;
     private Boolean valid;
     private String email;
     private String role;

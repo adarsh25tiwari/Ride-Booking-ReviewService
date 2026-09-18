@@ -1,6 +1,7 @@
 package com.adarsh.RideBooking_ReviewService.configuration;
 
 import com.adarsh.RideBooking_ReviewService.api.AuthServiceApi;
+import com.adarsh.RideBooking_ReviewService.api.BookingServiceApi;
 import com.netflix.discovery.EurekaClient;
 import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Bean;
@@ -32,5 +33,16 @@ public class RetrofitConfig {
                 .client(new OkHttpClient.Builder().build())
                 .build()
                 .create(AuthServiceApi.class);
+    }
+
+    @Bean
+    public BookingServiceApi bookingServiceApi() {
+
+        return new Retrofit.Builder()
+                .baseUrl(getServiceUrl("RIDEBOOKING-BOOKINGSERVICE"))
+                .addConverterFactory(JacksonConverterFactory.create())
+                .client(new OkHttpClient.Builder().build())
+                .build()
+                .create(BookingServiceApi.class);
     }
 }
