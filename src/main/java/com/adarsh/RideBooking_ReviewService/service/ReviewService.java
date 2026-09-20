@@ -6,6 +6,6 @@ public interface ReviewService {
     public Review findReviewById(Long id) throws Exception;
     public List<Review> findAllReviews();
     public boolean deleteReviewById(Long id);
-    public Review publishReview(Review  review) throws Exception;
+    public Review publishReview(Review  review,String token) throws Exception;
     public Review updateReview(Long id,Review newReview) throws Exception;
 }

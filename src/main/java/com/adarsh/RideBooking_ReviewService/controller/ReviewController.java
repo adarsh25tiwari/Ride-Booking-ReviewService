@@ -21,21 +21,28 @@ public class ReviewController {
     private final PublishReviewDtoToReview publishReviewDtoToReview;
 
     @PostMapping
-    public ResponseEntity<?> publishReview( @RequestBody PublishReviewDto publishReviewDto) throws Exception {
+    public ResponseEntity<?> publishReview(
+            @RequestHeader("Authorization") String authorization,
+            @RequestBody PublishReviewDto publishReviewDto) throws Exception {
+
+        String token = authorization.replace("Bearer ", "");
         Review incomingReview = publishReviewDtoToReview.toDto(publishReviewDto);
-        if(incomingReview == null){
-            return new ResponseEntity<>("Invalid argument...",HttpStatus.BAD_REQUEST);
+
+        if (incomingReview == null) {
+            return new ResponseEntity<>(
+                    "Invalid argument...",
+                    HttpStatus.BAD_REQUEST);
         }
 
-        reviewService.publishReview(incomingReview);
+        reviewService.publishReview(incomingReview, token);
 
-        ReviewDto response =  new ReviewDto();
+        ReviewDto response = new ReviewDto();
         response.setReviewId(incomingReview.getId());
         response.setContent(incomingReview.getContent());
         response.setRating(incomingReview.getRating());
         response.setCreatedAt(incomingReview.getCreatedAt());
         response.setUpdatedAt(incomingReview.getUpdatedAt());
-        response.setBookingId(incomingReview.getBooking().getId());
+        response.setBookingId(incomingReview.getBookingId());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

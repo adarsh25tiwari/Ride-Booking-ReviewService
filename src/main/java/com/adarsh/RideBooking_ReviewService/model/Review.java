@@ -22,13 +22,16 @@ public class Review extends BaseModel{
     private Double rating;
 
     //There will be review of each booking & we don't want whenever we fetch review all booking details to be fetch
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(nullable=false)
-    private Booking booking;
+   // @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    //@JoinColumn(nullable=false)
+    //private Booking booking;
+
+    @Column(name = "booking_id", nullable = false)
+    private Long bookingId;
 
     @Override
     public String toString(){
-        return "Review: " +this.content+ " Rating: " +this.rating+ " Booking: "+booking.getId()+" "+booking.createdAt;
+        return "Review: " +this.content+ " Rating: " +this.rating+ " Booking: "+bookingId+" ";
     }
 
 
